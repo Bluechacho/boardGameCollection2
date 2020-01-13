@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Board Game Collection 2</title>
+    <link rel="stylesheet" type="text/css" href="bgc2.css">
+    
+    <!-- Import scripts, fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather Sans' rel='stylesheet'>
+
+    <!-- Metadata -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Board game collection 2">
+    <meta name="keywords" content="HTML,CSS,JavaScript,AngularJS">
+    <meta name="author" content="Kelvin Beltre">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    
+<!-- Flexbox that contains BGC2 header, Angular button -->
+<div class= "headerFlexbox">
+    <h1>BGC2</h1>
+    <button>How is AngularJS implemented?</button>
+</div>
+<script>
+//Script to display info about gameName
+//Application: displayInfoApp
+//Controller: displayInfoCtrl
+
+/* Variable initialization for board games, formatted as:
+	gameName[0]: Name of game,
+    gameName[1]: Description,
+    gameName[2]: Theme,
+    gameName[3]: Player count,
+    gameName[4]: URL of full image,
+    gameName[5]: URL of icon,
+    gameName[6]: auxillary variable */
+var gameCatan = [
+    "Catan", 
+    "In Catan (formerly The Settlers of Catan), players try to be the dominant force on the island of Catan by building settlements, cities, and roads. On each turn dice are rolled to determine what resources the island produces. Players collect these resources (cards)—wood, grain, brick, sheep, or stone—to build up their civilizations to get to 10 victory points and win the game.",
+    "Medieval", 
+    "2 - 4", 
+    "https://images-na.ssl-images-amazon.com/images/I/81tWnmJQwBL._SX466_.jpg",
+    "https://cdn11.bigcommerce.com/s-inbvhbfxpc/images/stencil/608x608/products/326/1521/catan-studios-catan-box-front__36578.1521507883.jpg?c=2",
+    0
+];
+
+var gameClank = [
+    "Clank", 
+    "Burgle your way to adventure in the deck-building board game Clank! Sneak into an angry dragon's mountain lair to steal precious artifacts. Delve deeper to find more valuable loot. Acquire cards for your deck and watch your thievish abilities grow.",
+    "Medieval", 
+    "1 - 4",
+    "https://www.magicmadhouse.co.uk/images/clank-a-deck-building-adventure-p254691-239231_image.jpg",
+    "http://static1.squarespace.com/static/54148cdae4b05a3412bfa19b/59adb114e4fcb54ed5c82942/59dd561e8fd4d260ef99cfd9/1507677747228/Clank+3D+box+square.jpg",
+    0
+];
+
+var gameCoup = [
+    "Coup", 
+    "You are head of a family in an Italian city-state, a city run by a weak and corrupt court. You need to manipulate, bluff and bribe your way to power. Your object is to destroy the influence of all the other families, forcing them into exile. Only one family will survive...",
+    "Sci-fi", 
+    "3 - 6", 
+    "https://cdn-images-1.medium.com/max/1047/1*0f9z3uKRcFCK8S5gkU5hZg.jpeg",
+    "https://images-na.ssl-images-amazon.com/images/I/611YnRD6VxL._SY450_.jpg",
+    0
+];
+
+var gameCoupRebellion = [
+    "Coup: Rebellion", 
+    "In Coup: Rebellion G54 (G54), the last player with influence in the game wins, with influence being represented by face-down character cards in your playing area. Before each game players choose five character roles from a randomized deck. Characters have a unique variable power, and the deck is formed by three iterations of each role for fifteen cards total.",
+    "Sci-fi", 
+    "3 - 6", 
+    "https://target.scene7.com/is/image/Target/GUEST_b7ba6202-b6f1-41fd-b849-3f113bd8c9e1?wid=488&hei=488&fmt=pjpeg",
+    "https://images-na.ssl-images-amazon.com/images/I/71kOOlAWKNL._SX466_.jpg",
+    0
+];
+
+var gameDungeonsAndDragons = [
+    "Dungeons & Dragons", 
+    "In D&D, characters embark upon imaginary adventures within a fantasy setting. A Dungeon Master serves as the game's referee and storyteller while maintaining the setting in which the adventures occur, and playing the role of the inhabitants. The characters form a party that interacts with the setting's inhabitants, and each other. Together they solve dilemmas, engage in battles, and gather treasure and knowledge.",
+    "Medieval", 
+    "3 - 5", 
+    "https://i2.wp.com/shaneplays.com/wp-content/uploads/2014/08/dd-fifth-edition-players-handbook-cover-art-782x1024.jpg",
+    "https://images-na.ssl-images-amazon.com/images/I/81HHsBqXVaL.jpg",
+    0
+];
+
+var gameKemet = [
+    "Kemet", 
+    "In Kemet, players each deploy the troops of an Egyptian tribe and use the mystical powers of the gods of ancient Egypt – along with their powerful armies – to score points in glorious battles or through invasion of rich territories. A game is typically played to 8 or 10 victory points, which may be accrued through winning attacks, controlling temples, controlling fully-developed pyramids, sacrificing to the gods, and wielding particular magical powers.",
+    "Egyptian", 
+    "1 - 4", 
+    "https://cf.geekdo-images.com/imagepage/img/WtqfEYKrq2laGtDwP97bOb4ob2A=/fit-in/900x600/filters:no_upscale()/pic1431241.jpg",
+    "https://b3h2.scene7.com/is/image/BedBathandBeyond/226682866536499p?$imagePLP$&wid=256&hei=256",
+    0
+];
+
+var gameMageKnight = [
+    "Mage Knight", 
+    "The Mage Knight board game puts you in control of one of four powerful Mage Knights as you explore (and conquer) a corner of the Mage Knight universe under the control of the Atlantean Empire. Build your army, fill your deck with powerful spells and actions, explore caves and dungeons, and eventually conquer powerful cities controlled by this once-great faction!",
+    "Medieval", 
+    "1 - 3", 
+    "https://cf.geekdo-images.com/imagepage/img/99jI1AXEfv3y1z0ZZmy2z8Ltxpc=/fit-in/900x600/filters:no_upscale()/pic1083380.jpg",
+    "https://images-na.ssl-images-amazon.com/images/I/71zhrQilwNL._SX425_.jpg",
+    0
+];
+
+var gameTicketToRide = [
+    "Ticket to Ride", 
+    "Players collect cards of various types of train cars they then use to claim railway routes in North America. The longer the routes, the more points they earn. Additional points come to those who fulfill Destination Tickets – goal cards that connect distant cities; and to the player who builds the longest continuous route.",
+    "Abstract", 
+    "2 - 4", 
+    "https://cf.geekdo-images.com/imagepage/img/JrPAWdwNO6pAJGQ0snkUw7A0OcI=/fit-in/900x600/filters:no_upscale()/pic38668.jpg",
+    "https://cdn7.bigcommerce.com/s-inbvhbfxpc/images/stencil/1280x1280/products/392/1715/days-of-wonder-ticket-to-ride-box-front__48569.1523561799.jpg?c=2?imbypass=on",
+    0
+];
+
+var gameVast = [
+    "Vast: The Crystal Caverns", 
+    "The dragon has been asleep for many long years. In that time, the cave under which it slumbered has changed greatly… Goblins and strange monsters have filled its gloomy depths and there are whispers that the cave itself has begun thinking, shifting, and growing evermore dangerous. Still, stories of peril rarely overshadow the rumors of riches. And riches there may be… For where a dragon slumbers, there also lies a fiercely guarded treasure.",
+    "Medieval", 
+    "1 - 5", 
+    "https://images-na.ssl-images-amazon.com/images/I/913T--jIztL._SX679_.jpg",
+    "https://images-na.ssl-images-amazon.com/images/I/913T--jIztL._AC_SX425_.jpg",
+    0
+];
+
+//Placeholder for empty spots
+var gamePlaceholder = [
+    "", 
+    "n/a",
+    "n/a", 
+    "n/a", 
+    "n/a",
+    "https://images-na.ssl-images-amazon.com/images/I/81tWnmJQwBL._SX466_.jpg",
+    0
+];
+
+//List of all games
+var masterList = [
+    gameVast,
+    gameCatan,
+    gameClank,
+    gameCoup,
+    gameCoupRebellion,
+    gameDungeonsAndDragons,
+    gameKemet,
+    gameMageKnight,
+    gameTicketToRide
+  ];
+
+//List of currently displayed games
+//(initialized to masterList)
+var displayList = masterList;
+
+//displayInfoCtrl
+var app = angular.module('displayInfoApp', []);
+app.controller('displayInfoCtrl', function($scope) 
+{
+	//Currently selected index of displayList
+	$scope.currentIndex = 0;
+    
+    //Information to display about current game
+    $scope.name = displayList[$scope.currentIndex][0];
+    $scope.desc = displayList[$scope.currentIndex][1];
+    $scope.theme = displayList[$scope.currentIndex][2];
+    $scope.playerCount = displayList[$scope.currentIndex][3];
+
+    //Initial icons for gameFlexbox
+    document.getElementById("slot1").style.visibility = "hidden";
+    document.getElementById("slot2").style.visibility = "hidden";
+
+    $scope.nameSlot3 = displayList[$scope.currentIndex][0];
+    $scope.gameIconSlot3 = displayList[$scope.currentIndex][5];
+    
+    $scope.nameSlot4 = displayList[$scope.currentIndex + 1][0];
+    $scope.gameIconSlot4 = displayList[$scope.currentIndex + 1][5];
+    
+    $scope.nameSlot5 = displayList[$scope.currentIndex + 2][0];
+    $scope.gameIconSlot5 = displayList[$scope.currentIndex + 2][5];    
+
+    //When updateInfo is called, update info
+    $scope.updateInfo = function() 
+    {
+        $scope.name = displayList[$scope.currentIndex][0];
+    	$scope.desc = displayList[$scope.currentIndex][1];
+    	$scope.theme = displayList[$scope.currentIndex][2];
+        $scope.playerCount = displayList[$scope.currentIndex][3];
+        
+        //Update icons for gameFlexbox
+        //Check if slot1 is empty
+        if (($scope.currentIndex - 2) > -1)
+        {
+            $scope.nameSlot1 = displayList[$scope.currentIndex - 2][0];
+            $scope.gameIconSlot1 = displayList[$scope.currentIndex - 2][5];
+            document.getElementById("slot1").style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById("slot1").style.visibility = "hidden";
+        }
+
+        //Check if slot2 is empty
+        if (($scope.currentIndex - 1) > -1)
+        {
+            $scope.nameSlot2 = displayList[$scope.currentIndex - 1][0];
+            $scope.gameIconSlot2 = displayList[$scope.currentIndex - 1][5];
+            document.getElementById("slot2").style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById("slot2").style.visibility = "hidden";
+        }
+        
+        //Update slot3
+        $scope.nameSlot3 = displayList[$scope.currentIndex][0];
+        $scope.gameIconSlot3 = displayList[$scope.currentIndex][5];
+
+        //Check if slot4 is empty
+        if (($scope.currentIndex + 1) < displayList.length)
+        {
+            $scope.nameSlot4 = displayList[$scope.currentIndex + 1][0];
+            $scope.gameIconSlot4 = displayList[$scope.currentIndex + 1][5];
+            document.getElementById("slot4").style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById("slot4").style.visibility = "hidden";
+        }
+
+        //Check if slot5 is empty
+        if (($scope.currentIndex + 2) < displayList.length)
+        {
+            $scope.nameSlot5 = displayList[$scope.currentIndex + 2][0];
+            $scope.gameIconSlot5 = displayList[$scope.currentIndex + 2][5];
+            document.getElementById("slot5").style.visibility = "visible";
+        }
+        else
+        {
+            document.getElementById("slot5").style.visibility = "hidden";
+        }
+    }
+
+    //When indexDown is called, lower currentIndex by 1
+    //and then call updateInfo to update info
+    $scope.indexDown = function()
+    {
+        if ($scope.currentIndex > 0)
+        {
+            $scope.currentIndex -= 1;
+            $scope.updateInfo();
+        }
+    }
+
+    //When indexUp is called, raise currentIndex by 1
+    //and then call updateInfo to update info
+    $scope.indexUp = function()
+    {
+        if ($scope.currentIndex < displayList.length - 1)
+        {
+            $scope.currentIndex += 1;
+            $scope.updateInfo();
+        }
+    }
+
+    //When sortByName is called, copy masterList into
+    //displayList, sort displayList by gameName[0],
+    //and then call updateInfo to update info
+    $scope.sortByName = function()
+    {
+        displayList = masterList;
+        displayList.sort();
+        $scope.currentIndex = 0;
+        $scope.updateInfo();
+    }
+
+    //When sortByName is called, copy masterList into
+    //displayList, sort displayList by gameName[0],
+    //and then call updateInfo to update info
+    $scope.sortByRandom = function()
+    {
+        displayList = masterList;
+        displayList.sort(
+            function func(a, b) 
+            {  
+                return 0.5 - Math.random();
+            }
+        );
+        $scope.currentIndex = 0;
+        $scope.updateInfo();
+    }
+});
+</script>
+
+<!-- displayInfoApp -->
+<div class="displayInfo" ng-app="displayInfoApp" ng-controller="displayInfoCtrl">
+    
+    <!-- Flexbox that contains < Button, gameFlexbox, > Button -->
+    <div class="topFlexbox">
+        <button class="displayButton" ng-mousedown="indexDown()"><</button>
+        <!-- Flexbox that displays 5 games -->
+        <div class="gameFlexbox">
+            <img id= "slot1" ng-show="true" src={{gameIconSlot1}} alt= "An image of {{nameSlot1}}." style= "width:128px;height:128px;filter:grayscale();">
+            <img id= "slot2" ng-show="true" src={{gameIconSlot2}} alt= "An image of {{nameSlot2}}." style= "width:128px;height:128px;filter:grayscale();">
+            <img id= "slot3" ng-show="true" src={{gameIconSlot3}} alt= "An image of {{nameSlot3}}." style= "width:256px;height:256px;">
+            <img id= "slot4" ng-show="true" src={{gameIconSlot4}} alt= "An image of {{nameSlot4}}." style= "width:128px;height:128px;filter:grayscale();">
+            <img id= "slot5" ng-show="true" src={{gameIconSlot5}} alt= "An image of {{nameSlot5}}." style= "width:128px;height:128px;filter:grayscale();">
+        </div>
+        <button class="displayButton" ng-mousedown="indexUp()">></button>
+    </div>
+
+    <br>
+
+    <!-- Flexbox that contains sortOptionsFlexbox, infoDisplay -->
+    <div class= "bottomFlexbox">
+        <div class= "sortOptionsFlexbox">
+            Sort games by:
+            <button class="displayButton" ng-mousedown="sortByName()">Name</button>
+            <button class="displayButton" ng-mousedown="sortByTheme()">Theme</button>
+            <button class="displayButton" ng-mousedown="sortByCount()">Player Count</button>
+            <button class="displayButton" ng-mousedown="sortByRandom()">Random Order</button>
+        </div>
+        
+        <div class= "infoDisplay">
+        <p>This is <b>{{name}}</b>. It is a <b>{{theme}}</b> themed game, good for <b>{{playerCount}}</b> players. Here is a short description:</p>
+        <p>"{{desc}}".</p>  
+        </div>
+    
+    </div>
+</div>
+<a href="https://github.com/Bluechacho" target="_blank"> <img src= "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style = "width:14px;height:14px;">Created by Kelvin Beltre.</a>
+
+
+</body>
+</html>
