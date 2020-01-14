@@ -18,11 +18,6 @@
 </head>
 <body>
     
-<!-- Flexbox that contains BGC2 header, Angular button -->
-<div class= "headerFlexbox">
-    <h1>BGC2</h1>
-    <button>How is AngularJS implemented?</button>
-</div>
 <script>
 //Script to display info about gameName
 //Application: displayInfoApp
@@ -275,8 +270,50 @@ app.controller('displayInfoCtrl', function($scope)
         $scope.updateInfo();
     }
 
-    //When sortByName is called, copy masterList into
-    //displayList, sort displayList by gameName[0],
+    //When sortByTheme is called, copy masterList into
+    //displayList, sort displayList by gameName[2],
+    //and then call updateInfo to update info
+    $scope.sortByTheme = function()
+    {
+        displayList = masterList;
+        displayList.sort(function(a,b)
+        {
+            if (a[2] > b[2])
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        });
+        $scope.currentIndex = 0;
+        $scope.updateInfo();
+    }
+
+    //When sortByPlayerCount is called, copy masterList into
+    //displayList, sort displayList by gameName[3],
+    //and then call updateInfo to update info
+    $scope.sortByPlayerCount = function()
+    {
+        displayList = masterList;
+        displayList.sort(function(a,b)
+        {
+            if (a[3] > b[3])
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        });
+        $scope.currentIndex = 0;
+        $scope.updateInfo();
+    }
+
+    //When sortByRandom is called, copy masterList into
+    //displayList, "sort" displayList randomly,
     //and then call updateInfo to update info
     $scope.sortByRandom = function()
     {
@@ -290,24 +327,66 @@ app.controller('displayInfoCtrl', function($scope)
         $scope.currentIndex = 0;
         $scope.updateInfo();
     }
+
+    //When toggleOverlay is called, set the size of the
+    //overlay to cover gameFlexbox, set gameFlexbox to
+    //be blurry, then show the Angular info overlay 
+    $scope.toggleOverlay = function()
+    {
+        if (document.getElementById("overlay").style.visibility == "hidden")
+        {
+            document.getElementById("overlay").style.visibility = "visible";
+            document.getElementById("gameFlexbox").style.filter = "blur(2px)";
+        }
+        else
+        {
+            document.getElementById("overlay").style.visibility = "hidden";
+            document.getElementById("gameFlexbox").style.filter = "none";
+        }
+    }
 });
 </script>
 
 <!-- displayInfoApp -->
-<div class="displayInfo" ng-app="displayInfoApp" ng-controller="displayInfoCtrl">
-    
-    <!-- Flexbox that contains < Button, gameFlexbox, > Button -->
+
+
+<div class="displayInfo" ng-app="displayInfoApp" ng-controller="displayInfoCtrl">    
+<!-- Flexbox that contains BGC2 header, Angular button -->
+<div class= "headerFlexbox">
+    <h1>BGC2</h1>
+    <button class="displayButton" ng-click="toggleOverlay()">How is AngularJS implemented?</button>
+</div>
+
+<!-- Flexbox that contains < Button, gameFlexbox, > Button -->
     <div class="topFlexbox">
-        <button class="displayButton" ng-mousedown="indexDown()"><</button>
+        <div id="overlay">
+            <p>
+                Using the <b>AngularJS</b> framework, we can tweak CSS, run JS, and write HTML on the fly! Our two main components are the application <b>displayInfoApp</b> 
+                and the controller <b>displayInfoCtrl</b>, serving as our input and output respectively. We feed <b>displayInfoApp</b> information from the <b>displayList</b>
+                array as well as additional information from the page controls. Then, as if by magic - <b>displayInfoCtrl</b> modifies the page based on the application! 
+                <br>
+                Note the following values of <b>$scope</b> and see how they reflect in the blurb below:
+                <br>
+                <br>
+                <b>$scope.name = {{name}}</b>
+                <br>
+                <b>$scope.theme = {{theme}}</b>
+                <br>
+                <b>$scope.playerCount = {{playerCount}}</b>
+                <br>
+            </p>
+        </div>
+        
+        <button class="displayButton" ng-click="indexDown()"><</button>
         <!-- Flexbox that displays 5 games -->
-        <div class="gameFlexbox">
+        <div id="gameFlexbox">
             <img id= "slot1" ng-show="true" src={{gameIconSlot1}} alt= "An image of {{nameSlot1}}." style= "width:128px;height:128px;filter:grayscale();">
             <img id= "slot2" ng-show="true" src={{gameIconSlot2}} alt= "An image of {{nameSlot2}}." style= "width:128px;height:128px;filter:grayscale();">
             <img id= "slot3" ng-show="true" src={{gameIconSlot3}} alt= "An image of {{nameSlot3}}." style= "width:256px;height:256px;">
             <img id= "slot4" ng-show="true" src={{gameIconSlot4}} alt= "An image of {{nameSlot4}}." style= "width:128px;height:128px;filter:grayscale();">
             <img id= "slot5" ng-show="true" src={{gameIconSlot5}} alt= "An image of {{nameSlot5}}." style= "width:128px;height:128px;filter:grayscale();">
         </div>
-        <button class="displayButton" ng-mousedown="indexUp()">></button>
+        <button class="displayButton" ng-click="indexUp()">></button>
     </div>
 
     <br>
@@ -316,10 +395,10 @@ app.controller('displayInfoCtrl', function($scope)
     <div class= "bottomFlexbox">
         <div class= "sortOptionsFlexbox">
             Sort games by:
-            <button class="displayButton" ng-mousedown="sortByName()">Name</button>
-            <button class="displayButton" ng-mousedown="sortByTheme()">Theme</button>
-            <button class="displayButton" ng-mousedown="sortByCount()">Player Count</button>
-            <button class="displayButton" ng-mousedown="sortByRandom()">Random Order</button>
+            <button class="displayButton" ng-click="sortByName()">Name</button>
+            <button class="displayButton" ng-click="sortByTheme()">Theme</button>
+            <button class="displayButton" ng-click="sortByPlayerCount()">Player Count</button>
+            <button class="displayButton" ng-click="sortByRandom()">Random Order</button>
         </div>
         
         <div class= "infoDisplay">
@@ -329,7 +408,7 @@ app.controller('displayInfoCtrl', function($scope)
     
     </div>
 </div>
-<a href="https://github.com/Bluechacho" target="_blank"> <img src= "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style = "width:14px;height:14px;">Created by Kelvin Beltre.</a>
+<a href="https://github.com/Bluechacho/boardGameCollection2" target="_blank"> <img src= "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style = "width:14px;height:14px;">Created by Kelvin Beltre.</a>
 
 
 </body>
