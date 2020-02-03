@@ -333,7 +333,7 @@ app.controller('displayInfoCtrl', function($scope)
     //be blurry, then show the Angular info overlay 
     $scope.toggleOverlay = function()
     {
-        if (document.getElementById("overlay").style.visibility == "hidden")
+        if (document.getElementById("overlay").style.visibility != "visible")
         {
             document.getElementById("overlay").style.visibility = "visible";
             document.getElementById("gameFlexbox").style.filter = "blur(2px)";
@@ -349,7 +349,6 @@ app.controller('displayInfoCtrl', function($scope)
 
 <!-- displayInfoApp -->
 
-
 <div class="displayInfo" ng-app="displayInfoApp" ng-controller="displayInfoCtrl">    
 <!-- Flexbox that contains BGC2 header, Angular button -->
 <div class= "headerFlexbox">
@@ -361,14 +360,12 @@ app.controller('displayInfoCtrl', function($scope)
     <div class="topFlexbox">
         <div id="overlay">
             <p>
-                Using the <b>AngularJS</b> framework, we can tweak CSS, run JS, and write HTML on the fly! Our two main components are the controller <b>displayInfoCtrl</b> 
-                and the application <b>displayInfoApp</b>, serving as our input and output respectively. We feed <b>displayInfoCtrl</b> information from the <b>displayList</b>
-                array as well as additional information from the page controls. Then, as if by magic - <b>displayInfoApp</b> modifies the page based on the controller! 
+                Using the <b>AngularJS</b> framework, we can tweak CSS, run JS, and write HTML on the fly! Our two main components are the application <b>displayInfoApp</b> 
+                and the controller <b>displayInfoCtrl</b>, serving as our input and output respectively. We feed <b>displayInfoApp</b> information from the <b>displayList</b>
+                array as well as additional information from the page controls. Then, as if by magic - <b>displayInfoCtrl</b> modifies the page based on the application! 
                 <br>
                 Note the following values of <b>$scope</b> and see how they reflect in the blurb below:
                 <br>
-                <br>
-                <b>$scope.currentIndex = {{currentIndex}}</b>
                 <br>
                 <b>$scope.name = {{name}}</b>
                 <br>
